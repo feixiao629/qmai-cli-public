@@ -67,7 +67,7 @@ function getDownloadUrl(archiveName) {
 
   const baseUrl =
     process.env.QMAI_CLI_RELEASE_BASE_URL ||
-    "https://github.com/madaima/qmai-cli-public/releases/download";
+    "https://github.com/feixiao629/qmai-cli-public/releases/download";
   return `${baseUrl}/v${packageJson.version}/${archiveName}`;
 }
 
