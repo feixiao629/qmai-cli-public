@@ -1,0 +1,23 @@
+# Binary
+bin/
+qmai
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Go
+vendor/
+
+# Test
+coverage.out
+*.test
+
+# Config (don't commit user config)
+config.yaml

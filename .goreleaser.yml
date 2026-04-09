@@ -1,0 +1,46 @@
+version: 2
+
+project_name: qmai
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: qmai
+    main: ./main.go
+    binary: qmai
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{ .Version }}
+      - -X main.commit={{ .Commit }}
+      - -X main.date={{ .Date }}
+
+archives:
+  - id: qmai-archive
+    builds:
+      - qmai
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: "qmai_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "checksums.txt"
+
+release:
+  github:
+    owner: feixiao629
+    name: qmai-cli-public

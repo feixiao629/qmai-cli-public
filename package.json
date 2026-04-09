@@ -1,0 +1,31 @@
+{
+  "name": "qmai-cli-public",
+  "version": "0.1.0",
+  "description": "qmai-cli npm installer package",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feixiao629/qmai-cli-public.git"
+  },
+  "homepage": "https://github.com/feixiao629/qmai-cli-public",
+  "bin": {
+    "qmai": "npm/bin/qmai.js"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "npm",
+    ".goreleaser.yml"
+  ],
+  "scripts": {
+    "postinstall": "node npm/install.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "qmai",
+    "cli",
+    "golang"
+  ]
+}
