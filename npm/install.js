@@ -142,6 +142,7 @@ async function main() {
   const archivePath = path.join(distDir, archiveName);
   const extractedDir = path.join(distDir, baseName);
   const finalBinaryPath = path.join(distDir, binaryName);
+  const shimPath = path.join(packageRoot, "npm", "bin", "qmai.js");
 
   await fsp.mkdir(distDir, { recursive: true });
   await fsp.rm(archivePath, { force: true });
@@ -167,6 +168,7 @@ async function main() {
   await fsp.copyFile(extractedBinaryPath, finalBinaryPath);
   if (platform !== "windows") {
     await fsp.chmod(finalBinaryPath, 0o755);
+    await fsp.chmod(shimPath, 0o755);
   }
 
   await fsp.rm(archivePath, { force: true });
