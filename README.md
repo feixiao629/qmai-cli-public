@@ -85,17 +85,17 @@
 本仓库在 `skills/` 下提供与业务域对应的 Agent Skills（如 `qmai-product`、`qmai-order` 等），便于在 Cursor、Codex 等支持 Agent Skills 的环境中复用 `qmai` 子命令与参数说明。安装 CLI 后，可用 [Skills CLI](https://github.com/vercel-labs/skills) 从本仓库拉取技能包：
 
 ```bash
-# 安装本仓库中的全部技能（需 Node.js 18+）
+# 全局安装本仓库中的全部技能（推荐，需 Node.js 18+）
+npx skills add feixiao629/qmai-cli-public -y -g
+
+# 全局安装某一技能
+npx skills add feixiao629/qmai-cli-public --skill qmai-product -y -g
+
+# 仅在当前项目安装（非全局）
 npx skills add feixiao629/qmai-cli-public
-
-# 仅安装某一技能
-npx skills add feixiao629/qmai-cli-public --skill qmai-product
-
-# 使用完整 Git URL 亦可
-npx skills add https://github.com/feixiao629/qmai-cli-public
 ```
 
-全局安装到当前用户目录时可按需加 CLI 支持的参数（例如部分环境为 `-g`）。技能安装位置取决于所用工具（常见为项目或用户下的 `.cursor/skills/`、`.agents/skills/` 等），请以 Skills CLI 与编辑器文档为准。
+其中 `-g` 表示全局安装，`-y` 表示跳过确认提示。技能安装位置取决于所用工具（常见为项目或用户下的 `.cursor/skills/`、`.agents/skills/` 等），请以 Skills CLI 与编辑器文档为准。
 
 ## 安装与快速开始
 
