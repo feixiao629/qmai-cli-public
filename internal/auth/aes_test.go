@@ -3,13 +3,11 @@ package auth
 import "testing"
 
 func TestAESEncryptDecrypt_DocExample(t *testing.T) {
-	// Test data from the open platform documentation.
-	// aesKey = openKey (input to MD5 for key derivation)
-	// ivSeed = openId (input to MD5 for IV derivation)
-	openKey := "4g7Ku9WE5T1ba84f55dece41d93001dbb722f90efef6EOTVI3"
-	openId := "bb9203417a6c7da10d65e8eef01e61ae"
-	plaintext := "13815331845"
-	expectedCiphertext := "Rv/q+dGCwn3t+Fi0y+SYuA=="
+	// Fake credential material used to keep the example deterministic.
+	openKey := "fake-open-key-for-test-only-0002"
+	openId := "fake-open-id-for-test-only-0002"
+	plaintext := "13800000000"
+	expectedCiphertext := "IjvTj7Umt0Kq+s/b1jd4iQ=="
 
 	encrypted, err := AESEncrypt(plaintext, openId, openKey)
 	if err != nil {
@@ -30,9 +28,9 @@ func TestAESEncryptDecrypt_DocExample(t *testing.T) {
 }
 
 func TestAESEncryptDecrypt_Roundtrip(t *testing.T) {
-	openId := "d14c1559e87b747d577c834b275a4310"
-	openKey := "LyvrkvkxRkG2R6aM55bXpPwjYAbkEXTbVnKwfDYvVHjNwNFAmx"
-	plaintext := "hello world 测试"
+	openId := "fake-open-id-for-test-only-0003"
+	openKey := "fake-open-key-for-test-only-0003"
+	plaintext := "hello world test"
 
 	encrypted, err := AESEncrypt(plaintext, openId, openKey)
 	if err != nil {

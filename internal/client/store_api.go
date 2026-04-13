@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 // StoreAPI provides org/store related API methods.
@@ -24,9 +26,60 @@ type ShopWorktime struct {
 	Time []string `json:"time"`
 }
 
+// flexibleWeekdays accepts JSON []int, []string (digits), a single string ("1,2,3"), or null.
+type flexibleWeekdays []int
+
+func (w *flexibleWeekdays) UnmarshalJSON(data []byte) error {
+	if len(data) == 0 || string(data) == "null" {
+		*w = nil
+		return nil
+	}
+	var raw interface{}
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch v := raw.(type) {
+	case string:
+		parts := strings.Split(v, ",")
+		out := make([]int, 0, len(parts))
+		for _, p := range parts {
+			p = strings.TrimSpace(p)
+			if p == "" {
+				continue
+			}
+			n, err := strconv.Atoi(p)
+			if err != nil {
+				return fmt.Errorf("workweek string %q: %w", v, err)
+			}
+			out = append(out, n)
+		}
+		*w = flexibleWeekdays(out)
+	case []interface{}:
+		out := make([]int, 0, len(v))
+		for _, el := range v {
+			switch x := el.(type) {
+			case float64:
+				out = append(out, int(x))
+			case string:
+				n, err := strconv.Atoi(strings.TrimSpace(x))
+				if err != nil {
+					return fmt.Errorf("workweek element %q: %w", x, err)
+				}
+				out = append(out, n)
+			default:
+				return fmt.Errorf("workweek: unsupported element type %T", el)
+			}
+		}
+		*w = flexibleWeekdays(out)
+	default:
+		return fmt.Errorf("workweek: unsupported JSON type %T", raw)
+	}
+	return nil
+}
+
 type ShopOpentime struct {
-	Worktime []ShopWorktime `json:"worktime"`
-	Workweek []int          `json:"workweek"`
+	Worktime []ShopWorktime   `json:"worktime"`
+	Workweek flexibleWeekdays `json:"workweek"`
 }
 
 type ShopChannelOpenTime struct {
@@ -123,7 +176,7 @@ type ShopSyncWorktime struct {
 
 type ShopSyncOpenTime struct {
 	Worktime []ShopSyncWorktime `json:"worktime"`
-	Workweek []int              `json:"workweek"`
+	Workweek flexibleWeekdays   `json:"workweek"`
 }
 
 type ShopSyncChannelOpenTime struct {

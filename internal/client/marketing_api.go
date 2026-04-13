@@ -43,7 +43,7 @@ type CouponDetailResponse struct {
 	TemplateID     int64                 `json:"templateId"`
 	TemplateName   string                `json:"templateName"`
 	TemplateType   int                   `json:"templateType"`
-	UseStatus      int                   `json:"status"`
+	UseStatus      int                   `json:"useStatus"`
 	UseOrderCode   string                `json:"useOrderCode"`
 	UseStoreName   string                `json:"useStoreName"`
 	UseTime        string                `json:"useTime"`
