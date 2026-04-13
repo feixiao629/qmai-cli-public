@@ -15,6 +15,7 @@
     "README.md",
     "LICENSE",
     "npm",
+    "skills",
     ".goreleaser.yml"
   ],
   "scripts": {
