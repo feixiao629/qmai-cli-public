@@ -1,6 +1,6 @@
 {
   "name": "qmai-cli-public",
-  "version": "0.0.0-dev",
+  "version": "0.1.3",
   "description": "qmai-cli npm installer package",
   "license": "MIT",
   "repository": {
